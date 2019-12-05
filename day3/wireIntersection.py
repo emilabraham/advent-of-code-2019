@@ -73,6 +73,16 @@ def closestIntersection(wireIntersections):
             closest = dis
     return closest
 
+# Return the shortest path to list of intersections
+def shortestPath(path, path2, intersections):
+    shortest = 0
+    for x, y in intersections:
+        tempShort = path.index((x, y)) + path2.index((x, y))
+        if shortest == 0:
+            shortest = tempShort
+        if tempShort < shortest:
+            shortest = tempShort
+    return shortest + 2
 
 path1 = path(wire1)
 path2 = path(wire2)
@@ -81,3 +91,5 @@ testPath2 = path(testWire2)
 
 print(closestIntersection(intersections(testPath1, testPath2)))
 print(closestIntersection(intersections(path1, path2)))
+print(shortestPath(testPath1, testPath2, intersections(testPath1, testPath2)))
+print(shortestPath(path1, path2, intersections(path1, path2)))
