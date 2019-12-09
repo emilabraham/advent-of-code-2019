@@ -222,3 +222,22 @@ orbitals = ["373)6C9", "7Y8)CB5", "HQT)MJB", "PNS)P67", "KC2)B72", "FSZ)JLN",
 "VTJ)HCG", "RSZ)3SS", "MY5)6ZG", "33L)9GR", "3SS)18W", "NN1)SJM", "FJ6)2CP",
 "ZHK)127", "232)SN5", "PSX)1G7", "HDH)VS7", "JM6)4QT", "BXD)3ZJ", "KS6)M3Y",
 "HLQ)8JL", "JWF)QHR", "45K)P9F", "BHH)K9V", "46H)GJW"] 
+
+# TODO: Find the "center of the universe". The thing doesn't orbit anything
+# else. Like COM in the example. Find this by searching for unique values on the
+# left side. That's where you can start your search.
+
+# TODO: Build a linked list. I think the head should be the center of the
+# universe. Maybe reorganize the input list so that related stuff are next
+# to each other. This will be the trickiest part, I think. We need to avoid
+# creating circular loops and avoid making duplicate nodes if they already
+# exist.
+
+# TODO: We do a countOrbits() at each node in the map and add it to an
+# accumulator.
+
+# So I think the data structure can look like:
+# object: string of the object 
+# next: index of the object this object is orbiting
+# When adding a new orbit, we check if the object exists. If it does, we point
+# to it. If it doesn't, we add it and point to it.
