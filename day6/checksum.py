@@ -1,4 +1,5 @@
 #This is really big;. Maybe import/read this from a file instead
+# Like the example, COM is the center of the universe.
 orbitals = ["373)6C9", "7Y8)CB5", "HQT)MJB", "PNS)P67", "KC2)B72", "FSZ)JLN",
 "XBV)JC2", "DFZ)4NT", "VGX)9KB", "XC8)7LW", "1CP)Y2R", "CPQ)866", "ND4)PQK",
 "R6X)RPV", "9T7)2NW", "C8T)B5J", "SVZ)J7N", "ZJC)43B", "C9F)QC1", "T95)5CD",
@@ -223,15 +224,59 @@ orbitals = ["373)6C9", "7Y8)CB5", "HQT)MJB", "PNS)P67", "KC2)B72", "FSZ)JLN",
 "ZHK)127", "232)SN5", "PSX)1G7", "HDH)VS7", "JM6)4QT", "BXD)3ZJ", "KS6)M3Y",
 "HLQ)8JL", "JWF)QHR", "45K)P9F", "BHH)K9V", "46H)GJW"] 
 
-# TODO: Find the "center of the universe". The thing doesn't orbit anything
-# else. Like COM in the example. Find this by searching for unique values on the
-# left side. That's where you can start your search.
+example = ["COM)B", "B)C", "C)D", "D)E", "E)F", "B)G", "G)H", "D)I", "E)J",
+           "J)K", "K)L"]
 
-# TODO: Build a linked list. I think the head should be the center of the
-# universe. Maybe reorganize the input list so that related stuff are next
-# to each other. This will be the trickiest part, I think. We need to avoid
-# creating circular loops and avoid making duplicate nodes if they already
-# exist.
+class Node:
+    def __init__(self, data, nextObj):
+        self.data = data
+        self.next = nextObj
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+# Creates the orbital map
+def createMap():
+    orbitalMap = []
+    orbitalMap.append(Node("COM", -1))
+    for i in orbitals:
+        lhs = i[:i.find(")")]
+        rhs = i[(i.find(")") + 1):]
+        inMap = contains(lhs, orbitalMap)
+        print(inMap)
+        if inMap != -1:
+            orbitalMap.append(Node(rhs, inMap))
+        else:
+            orbitalMap.append(Node(rhs, -1))
+
+    printMap(orbitalMap)
+
+# Prints out a wordy version of the orbital map
+def printMap(orbMap):
+    for obj in orbMap:
+        if obj.next is None:
+            print("%s is the center of the universe" % (obj.data))
+        elif obj.next == -1:
+            print("%s has a -1 next" % (obj.data))
+        else:
+            print("%s is orbiting %s" % (obj.data, orbMap[obj.next].data))
+
+# returns index of the object from the orbital map
+def contains(obj, orbMap):
+    foundIndex = -1
+    currentIndex = 0
+    for o in orbMap:
+        if o.data == obj:
+            foundIndex = currentIndex
+        else:
+            currentIndex = currentIndex + 1
+    return foundIndex
+
+createMap()
+
+# TODO: Remove all the null nodes in the orbital map. After that it should just
+# be going through the list, and following each next and counting as you go
 
 # TODO: We do a countOrbits() at each node in the map and add it to an
 # accumulator.
